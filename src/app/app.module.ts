@@ -19,6 +19,9 @@ import { NoAutorizadoComponent } from './componentes/error/no-autorizado/no-auto
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { AppRoutingModule } from './app-routing.module';
     NoopAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
