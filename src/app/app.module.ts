@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -17,6 +17,8 @@ import { AdministradorComponent } from './componentes/administrador/administrado
 import { NoEncontradoComponent } from './componentes/error/no-encontrado/no-encontrado.component';
 import { NoAutorizadoComponent } from './componentes/error/no-autorizado/no-autorizado.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from "@angular/common/http";
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NoopAnimationsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
