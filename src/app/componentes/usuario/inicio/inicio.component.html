@@ -1,7 +1,43 @@
 <div class="container">
+  <div class="alert alert-danger" *ngIf="mensaje">
+    <strong>Error:</strong> {{mensaje}}
+  </div>
 
-  <p>inicio funciona!</p>
+  <div class="course-container">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col col-xs-6">
+            <h3 class="panel-title">Cursos disponibles</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Profesor</th>
+            <th scope="col" *ngIf="usuario && usuario.rol === 'ESTUDIANTE'">Acción</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let curso of listaCursos;  index as ind">
+            <th scope="row">{{ind+1}}</th>
+            <td>{{curso.nombreCurso}}</td>
+            <td>{{curso.profesor.nombreUsuario}}</td>
 
 
+          </tr>
+          </tbody>
 
-</div>
+
+        </table>
+      </div>
+    </div>
+
+  </div>

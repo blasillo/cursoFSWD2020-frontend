@@ -22,6 +22,9 @@ export class UsuarioService {
     this.usuario = this.usuarioSubject.asObservable();
   }
 
+  public get usuarioValor(): Usuario {
+    return this.usuarioSubject.value;
+  }
 
   registroUsuario (usuario:Usuario): Observable<any> {
     return this.http.post( API_URL + "registro", JSON.stringify( usuario),

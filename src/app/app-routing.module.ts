@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
+import {Router, RouterModule, Routes} from "@angular/router";
 import { InicioComponent} from "./componentes/usuario/inicio/inicio.component";
 import {LoginComponent} from "./componentes/usuario/login/login.component";
 import {RegistroComponent} from "./componentes/usuario/registro/registro.component";
@@ -36,4 +36,12 @@ const routes:Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  constructor(private router: Router) {
+    this.router.errorHandler = (error: any) => {
+      this.router.navigate(['/404']);
+    }
+  }
+
+}
