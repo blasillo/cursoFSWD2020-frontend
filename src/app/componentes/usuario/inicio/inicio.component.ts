@@ -3,6 +3,7 @@ import {Curso} from "../../../modelos/curso";
 import {Usuario} from "../../../modelos/usuario";
 import {UsuarioService} from "../../../servicios/usuario.service";
 import {Route} from "@angular/router";
+import {RegistroCurso} from "../../../modelos/registro-curso";
 
 @Component({
   selector: 'app-inicio',
@@ -29,5 +30,24 @@ export class InicioComponent implements OnInit {
       this.listaCursos = datos;
     });
   }
+
+  inscribirse(curso: Curso): void {
+
+      if(!this.usuario){
+        this.mensaje = "Hay que iniciar sesión para apuntarse a un curso";
+        return;
+      }
+      var registroCurso = new RegistroCurso();
+
+      registroCurso.curso = curso;
+      registroCurso.estudiante = this.usuario;
+
+      this.usuarioServicio.inscribirse( registroCurso).subscribe(
+        datos => { this.mensaje = "Inscrito."; },
+          err => { this.mensaje = "Se ha producido un error.";}
+      );
+  }
+
+
 
 }

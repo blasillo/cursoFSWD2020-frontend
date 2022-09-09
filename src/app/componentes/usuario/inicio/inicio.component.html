@@ -30,6 +30,9 @@
             <th scope="row">{{ind+1}}</th>
             <td>{{curso.nombreCurso}}</td>
             <td>{{curso.profesor.nombreUsuario}}</td>
+            <td *ngIf="usuario && usuario.rol === 'ESTUDIANTE'">
+              <button class="btn btn-info" (click)="inscribirse (curso)">Inscribirse</button>
+            </td>
 
 
           </tr>

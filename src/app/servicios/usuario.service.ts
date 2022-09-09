@@ -3,8 +3,11 @@ import { Injectable } from '@angular/core';
 import {Usuario} from "../modelos/usuario";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {RegistroCurso} from "../modelos/registro-curso";
 
 let API_URL = 'http://localhost:8080/api/v1/usuarios/';
+
+let API_ESTUDIANTES_URL = 'http://localhost:8080/api/v1/estudiantes/';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +17,8 @@ export class UsuarioService {
   public usuario: Observable<Usuario>;
 
   private usuarioSubject: BehaviorSubject<Usuario>;
+
+  cabeceras : HttpHeaders;
 
 
   constructor( private http: HttpClient) {
@@ -36,13 +41,21 @@ export class UsuarioService {
       {headers: {'Content-Type': 'application/json; charset=UTF-8'}});
   }
 
+  ponerCabeceras () {
+    this.cabeceras = new HttpHeaders({
+      authorization:'Bearer ' + this.usuarioSubject.value.token,
+      "Content-Type": "application/json; charset=UTF-8"
+    });
+
+  }
+
 
 
   // @ts-ignore
   login (usuario:Usuario):Observable<any> {
     const cabeceras = new HttpHeaders(
       usuario ? {
-        'authorization':'Basic ' + btoa (usuario.nombreUsuario +':'+ usuario.clave)
+        'Authorization':'Basic ' + btoa (usuario.nombreUsuario +':'+ usuario.clave)
       } : {}
     );
 
@@ -56,5 +69,14 @@ export class UsuarioService {
           return response;
         })
       );
+  }
+
+  logout (): void {}
+
+  inscribirse ( registroCurso : RegistroCurso ): Observable<any> {
+    this.ponerCabeceras();
+    return this.http.post ( API_ESTUDIANTES_URL + "inscripcion" ,
+                                JSON.stringify(registroCurso),
+                        {headers: this.cabeceras});
   }
 }
