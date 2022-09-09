@@ -14,6 +14,7 @@ export class InicioComponent implements OnInit {
 
   listaCursos: Array<Curso> = [];
   mensaje: string = '';
+  aviso: string ='';
   usuario: Usuario;
 
 
@@ -43,7 +44,7 @@ export class InicioComponent implements OnInit {
       registroCurso.estudiante = this.usuario;
 
       this.usuarioServicio.inscribirse( registroCurso).subscribe(
-        datos => { this.mensaje = "Inscrito."; },
+        datos => { this.aviso = "Inscrito."; },
           err => { this.mensaje = "Se ha producido un error.";}
       );
   }
