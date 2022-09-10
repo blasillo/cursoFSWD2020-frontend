@@ -3,15 +3,18 @@
     <img src="assets/imagenes/angular.png" width="30" height="30" class="d-inline-block align-top"/>
     Aplicación de cursos
   </a>
+
   <div class="navbar-nav mr-auto">
     <li class="nav-item">
       <a href="/inicio" class="nav-link"><fa-icon [icon]="iconoInicio"></fa-icon><span></span>Inicio</a>
     </li>
     <li class="nav-item">
-
+      <a href="/estudiante/{{usuario.idUsuario}}" class="nav-link" *ngIf="esEstudiante">Panel Estudiante</a>
+      <a href="/profesor" class="nav-link" *ngIf="esProfesor">Panel Profesor</a>
+      <a href="/administrador" class="nav-link" *ngIf="esAdministrador">Panel Administrador</a>
     </li>
   </div>
-  <div class="navbar-nav ml-auto" >
+  <div class="navbar-nav ml-auto" *ngIf="!usuario">
     <li class="nav-item">
       <a href="/registro" class="nav-link">
         <fa-icon [icon]="iconoUsuario"></fa-icon> <span></span> Registrarse
@@ -23,6 +26,21 @@
       </a>
     </li>
   </div>
+
+  <div class="navbar-nav ml-auto" *ngIf="usuario">
+    <li class="nav-item">
+      <a href="/perfil" class="nav-link">
+         {{usuario.nombreUsuario}}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a (click)="logOut()" class="nav-link">
+        <span></span> Salir de sesión
+      </a>
+    </li>
+  </div>
+
+
 </nav>
 
 <router-outlet></router-outlet>

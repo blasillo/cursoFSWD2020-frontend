@@ -71,7 +71,10 @@ export class UsuarioService {
       );
   }
 
-  logout (): void {}
+  logout (): void {
+        localStorage.removeItem('usuario');
+        //this.usuarioSubject.next(null);
+  }
 
   inscribirse ( registroCurso : RegistroCurso ): Observable<any> {
     this.ponerCabeceras();
@@ -79,4 +82,12 @@ export class UsuarioService {
                                 JSON.stringify(registroCurso),
                         {headers: this.cabeceras});
   }
+
+  obtenerCursosEstudiante(idEstudiante: string): Observable<any> {
+    this.ponerCabeceras();
+
+    return this.http.get (API_ESTUDIANTES_URL + idEstudiante + "/cursos",
+      {headers: this.cabeceras});
+  }
+
 }
