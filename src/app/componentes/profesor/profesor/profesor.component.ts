@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Usuario} from "../../../modelos/usuario";
+import {ProfesorService} from "../../../servicios/profesor.service";
 
 @Component({
   selector: 'app-profesor',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfesorComponent implements OnInit {
 
-  constructor() { }
+  listaEstudiantes: Array<Usuario>;
+
+  profesor: Usuario;
+
+  constructor( private profesorServicio: ProfesorService) {
+    // @ts-ignore
+    this.profesor = JSON.parse(localStorage.getItem('usuario'));
+  }
 
   ngOnInit(): void {
+    this.obtenerEstudiantes();
+  }
+
+  obtenerEstudiantes(){
+    this.profesorServicio.obtnenerTodosEstudiantesPorProfesor( this.profesor.idUsuario )
+      .subscribe(datos => {
+      this.listaEstudiantes = datos;
+    });
   }
 
 }

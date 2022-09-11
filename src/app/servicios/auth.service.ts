@@ -22,7 +22,10 @@ export class AuthService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)  {
     if (this.usuario){
-      if ( route.data['roles'] && route.data['roles'].indexOf(this.usuario.rol) === -1){
+      if ( route.data['roles'] &&
+           route.data['roles'].indexOf(this.usuario.rol) === -1){
+        this.router.navigate(['/401']);
+
         return false;
       }
       return true;

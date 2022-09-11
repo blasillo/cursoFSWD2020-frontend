@@ -11,12 +11,14 @@ import {NoEncontradoComponent} from "./componentes/error/no-encontrado/no-encont
 import {NoAutorizadoComponent} from "./componentes/error/no-autorizado/no-autorizado.component";
 import {AuthService} from "./servicios/auth.service";
 import {Rol} from "./modelos/rol";
+import {PerfilComponent} from "./componentes/usuario/perfil/perfil.component";
 
 const routes:Routes = [
   { path:'', redirectTo: 'inicio', pathMatch: 'full'},
   { path:'inicio', component: InicioComponent },
   { path:'login', component: LoginComponent },
   { path:'registro', component: RegistroComponent },
+  { path:'perfil', component: PerfilComponent},
 
   { path:'estudiante',
     component: EstudianteComponent,
@@ -28,8 +30,15 @@ const routes:Routes = [
     canActivate: [AuthService],
     data: { roles: [Rol.ESTUDIANTE]} },
 
-  { path: 'profesor', component: ProfesorComponent},
-  { path: 'administrador', component: AdministradorComponent},
+  { path: 'profesor',
+    component: ProfesorComponent,
+    canActivate: [AuthService],
+    data: { roles: [Rol.PROFESOR]} },
+
+  { path: 'administrador',
+    component: AdministradorComponent,
+    canActivate: [AuthService],
+    data: { roles: [Rol.ADMINISTRADOR]} },
 
   {path:'404', component: NoEncontradoComponent},
   {path:'401', component: NoAutorizadoComponent}
