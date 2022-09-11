@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { faUser , faHome, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { faUser , faHome, faSignIn, faSignOut} from '@fortawesome/free-solid-svg-icons';
 import {UsuarioService} from "./servicios/usuario.service";
 import {Router} from "@angular/router";
 import {Usuario} from "./modelos/usuario";
@@ -18,6 +18,7 @@ export class AppComponent {
   iconoUsuario = faUser;
   iconoInicio  = faHome;
   iconoLogin   = faSignIn;
+  iconoLogout  = faSignOut;
 
   title = 'Cursos';
 
@@ -28,8 +29,11 @@ export class AppComponent {
   }
 
   logOut() {
-    this.usuarioServicio.logout();
-    this.router.navigate(['/']);
+    this.usuarioServicio.logout().subscribe( datos =>{
+      this.usuarioServicio.logout();
+      this.router.navigate(['/login']);
+    });
+
   }
 
   get esEstudiante() {

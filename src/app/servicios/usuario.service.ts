@@ -16,7 +16,7 @@ export class UsuarioService {
 
   public usuario: Observable<Usuario>;
 
-  private usuarioSubject: BehaviorSubject<Usuario>;
+  private usuarioSubject: BehaviorSubject<Usuario | any>;
 
   cabeceras : HttpHeaders;
 
@@ -71,9 +71,13 @@ export class UsuarioService {
       );
   }
 
-  logout (): void {
+  logout (): Observable<any> {
+    return this.http.post( API_URL + "logout",{}).pipe(
+      map (repomse => {
         localStorage.removeItem('usuario');
-        //this.usuarioSubject.next(null);
+        this.usuarioSubject.next(null);
+      })
+    );
   }
 
   inscribirse ( registroCurso : RegistroCurso ): Observable<any> {
