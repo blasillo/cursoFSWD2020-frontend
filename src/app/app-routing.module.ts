@@ -9,14 +9,25 @@ import {ProfesorComponent} from "./componentes/profesor/profesor/profesor.compon
 import {AdministradorComponent} from "./componentes/administrador/administrador/administrador.component";
 import {NoEncontradoComponent} from "./componentes/error/no-encontrado/no-encontrado.component";
 import {NoAutorizadoComponent} from "./componentes/error/no-autorizado/no-autorizado.component";
+import {AuthService} from "./servicios/auth.service";
+import {Rol} from "./modelos/rol";
 
 const routes:Routes = [
   { path:'', redirectTo: 'inicio', pathMatch: 'full'},
   { path:'inicio', component: InicioComponent },
   { path:'login', component: LoginComponent },
   { path:'registro', component: RegistroComponent },
-  { path:'estudiante', component: EstudianteComponent },
-  { path:'estudiante/:id', component: EstudianteComponent },
+
+  { path:'estudiante',
+    component: EstudianteComponent,
+    canActivate: [AuthService],
+    data: {roles: [Rol.ESTUDIANTE]} },
+
+  { path:'estudiante/:id',
+    component: EstudianteComponent ,
+    canActivate: [AuthService],
+    data: { roles: [Rol.ESTUDIANTE]} },
+
   { path: 'profesor', component: ProfesorComponent},
   { path: 'administrador', component: AdministradorComponent},
 
